@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { LayersProvider } from "./store/layersStore";
+import { LayerControlPanel } from "./components/LayerControlPanel";
 import { LAYERS } from "./config/layers";
 import type { LayersState } from "./types";
 
@@ -16,13 +17,17 @@ function buildInitialState(): LayersState {
   }, {});
 }
 
+const LAYER_IDS = LAYERS.map((layer) => layer.id);
+
 export function App() {
   const initialState = useMemo(buildInitialState, []);
 
   return (
     <div className="app">
       <h1>Управление картографическими слоями</h1>
-      <LayersProvider state={initialState}>{null}</LayersProvider>
+      <LayersProvider state={initialState}>
+        <LayerControlPanel layerIds={LAYER_IDS} />
+      </LayersProvider>
     </div>
   );
 }
