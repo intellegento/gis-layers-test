@@ -52,3 +52,43 @@
   font-variant-numeric: tabular-nums;
   font-size: 13px;
 }
+
+.layer-item__error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  color: #b3261e;
+}
+
+.layer-item__error button {
+  cursor: pointer;
+}
+
+.status-badge {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.status-badge--idle {
+  background: #eee;
+  color: #666;
+}
+
+.status-badge--loading {
+  background: #fff3cd;
+  color: #8a6d00;
+}
+
+.status-badge--success {
+  background: #d9f2e3;
+  color: #1e7a43;
+}
+
+.status-badge--error {
+  background: #fbdedb;
+  color: #b3261e;
+}

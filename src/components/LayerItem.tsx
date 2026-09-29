@@ -1,6 +1,7 @@
 import React from "react";
 import { useLayersSelector } from "../store/layersStore";
 import { useLayerActions } from "../hooks/useLayerActions";
+import { StatusBadge } from "./StatusBadge";
 import type { LayerId } from "../types";
 
 interface LayerItemProps {
@@ -9,7 +10,7 @@ interface LayerItemProps {
 
 function LayerItemImpl({ layerId }: LayerItemProps) {
   const layer = useLayersSelector((state) => state[layerId]);
-  const { toggleLayer, setOpacity } = useLayerActions();
+  const { toggleLayer, setOpacity, retryLayer } = useLayerActions();
 
   return (
     <li className="layer-item">
@@ -22,6 +23,8 @@ function LayerItemImpl({ layerId }: LayerItemProps) {
           />
           <span>{layer.name}</span>
         </label>
+
+        <StatusBadge status={layer.status} />
       </div>
 
       <div className="layer-item__row">
@@ -38,6 +41,15 @@ function LayerItemImpl({ layerId }: LayerItemProps) {
         />
         <span className="layer-item__opacity-value">{Math.round(layer.opacity * 100)}%</span>
       </div>
+
+      {layer.status === "error" && (
+        <div className="layer-item__error">
+          <span>{layer.error}</span>
+          <button type="button" onClick={() => retryLayer(layerId)}>
+            Повторить
+          </button>
+        </div>
+      )}
     </li>
   );
 }
