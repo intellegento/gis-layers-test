@@ -92,3 +92,9 @@
   background: #fbdedb;
   color: #b3261e;
 }
+
+.layers-summary {
+  font-size: 13px;
+  color: #555;
+  margin: 0 0 12px;
+}

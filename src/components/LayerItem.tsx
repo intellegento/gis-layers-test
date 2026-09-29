@@ -1,5 +1,5 @@
 import React from "react";
-import { useLayersSelector } from "../store/layersStore";
+import { useLayer } from "../hooks/useLayer";
 import { useLayerActions } from "../hooks/useLayerActions";
 import { StatusBadge } from "./StatusBadge";
 import type { LayerId } from "../types";
@@ -9,7 +9,7 @@ interface LayerItemProps {
 }
 
 function LayerItemImpl({ layerId }: LayerItemProps) {
-  const layer = useLayersSelector((state) => state[layerId]);
+  const layer = useLayer(layerId);
   const { toggleLayer, setOpacity, retryLayer } = useLayerActions();
 
   return (
@@ -54,4 +54,7 @@ function LayerItemImpl({ layerId }: LayerItemProps) {
   );
 }
 
+// Memoized: with the per-key subscription in useLayer, a layer's own row is
+// the only thing that ever needs to re-render when its state changes; other
+// rows should not be touched at all.
 export const LayerItem = React.memo(LayerItemImpl);
